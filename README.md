@@ -1,7 +1,18 @@
 # Dimension
 
+<img src="docs/images/dimension-logo.png" width="112" alt="Dimension logo, a purple triangulated wireframe cube">
+
 Dimension is a standalone Ubuntu viewer for 3D models. It opens in a native GTK window and renders locally. The renderer and model decoders are bundled, so opening models requires no network access or external conversion software.
 
+## Screenshots
+
+**Studio lighting and bloom**
+
+![Dimension showing the Aperture sculpture with studio lighting and bloom](docs/images/studio.png)
+
+**Wireframe mode**
+
+![Dimension showing the triangle mesh of the Aperture sculpture in wireframe mode](docs/images/wireframe.png)
 
 ## Install on Ubuntu
 
