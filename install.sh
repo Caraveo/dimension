@@ -2,7 +2,7 @@
 set -eu
 
 # Run as your desktop user. Elevation is only required for the package install.
-version=0.0.4
+version=0.0.5
 artifact="dimension_${version}_all.deb"
 base="https://github.com/caraveo/dimension/releases/download/v$version"
 

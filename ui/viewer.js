@@ -50,7 +50,6 @@ function main() {
   controls.enableDamping = true;
   controls.minDistance = 0.4;
   controls.maxDistance = 24;
-  controls.maxPolarAngle = Math.PI / 2 + 0.12;
   controls.autoRotateSpeed = 0.9;
 
   const room = new RoomEnvironment();
@@ -121,9 +120,7 @@ function main() {
 
   function apply() {
     document.body.classList.toggle('clean-view', state.clean);
-    grid.visible = !state.clean;
-    ground.visible = !state.clean;
-    if (active?.podium) active.podium.visible = !state.clean;
+    controls.maxPolarAngle = state.clean ? Math.PI : Math.PI / 2;
     studio.visible = state.light;
     scene.environment = state.light ? environment.texture : null;
     controls.autoRotate = state.spin;
@@ -243,6 +240,11 @@ function main() {
 
   renderer.setAnimationLoop(() => {
     controls.update();
+    // Keep the stage out of the way when inspecting the model from underneath.
+    const showFloor = !state.clean && camera.position.y > ground.position.y;
+    grid.visible = showFloor;
+    ground.visible = showFloor;
+    if (active?.podium) active.podium.visible = showFloor;
     if (state.post) composer.render();
     else renderer.render(scene, camera);
   });

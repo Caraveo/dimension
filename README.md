@@ -25,13 +25,13 @@ Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the vie
 Run this from your desktop user's terminal. The installer verifies the package checksum and uses `sudo` to install the package for all users.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.4/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.5/install.sh | sh
 ```
 
-You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.4) and install it with:
+You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.5) and install it with:
 
 ```sh
-sudo apt install ./dimension_0.0.4_all.deb
+sudo apt install ./dimension_0.0.5_all.deb
 ```
 
 Open **Dimension** from Applications, double-click a supported model in Files, or run `dimension /path/to/model.usdz`. The curl installer also sets Dimension as the default for the desktop user who runs it. On other accounts, an explicit per-user file association takes precedence over the system default.
@@ -48,7 +48,7 @@ Dimension starts with a studio-lit sculpture. Use **Open model**, press **Ctrl+O
 
 | Action | Control |
 | --- | --- |
-| Orbit | Left drag |
+| Orbit (drag underneath in Clean View) | Left drag |
 | Pan | Shift + left drag or right drag |
 | Zoom | Scroll |
 | Frame model | F |
@@ -60,7 +60,7 @@ Dimension starts with a studio-lit sculpture. Use **Open model**, press **Ctrl+O
 | Leave Clean View | Esc |
 | Shortcut guide | F1 |
 
-**Clean View** hides the viewport backdrop, floor grid, demo podium, and interface controls. Press **Esc** to restore the full viewport. Dimension remembers Clean View, wireframe, lighting, processing, and auto-rotate when you switch models or restart. The shortcut guide opens on first launch and is available anytime with **F1**.
+**Clean View** hides the viewport backdrop, floor grid, demo podium, and interface controls. Left-drag upward in Clean View to orbit underneath the model. Press **Esc** to restore the full viewport and return to the upper half of the orbit. Dimension remembers Clean View, wireframe, lighting, processing, and auto-rotate when you switch models or restart. The shortcut guide opens on first launch and is available anytime with **F1**.
 
 Dimension can open GLB, glTF, USDZ, USD, USDA, USDC, OBJ, FBX, STL, PLY, DAE, 3DS, 3MF, AMF, PCD, VOX, VTK, and VTP. It previews static geometry and supported materials. Fidelity varies with format, shader, and scene features. USD packages using advanced composition or materials can preview differently from their authoring tools, and external assets must be available locally.
 
