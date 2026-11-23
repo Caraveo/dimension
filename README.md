@@ -2,6 +2,11 @@
 
 ![Dimension — 3D model viewer for Ubuntu](docs/images/dimension-banner.png)
 
+[![Latest release](https://img.shields.io/github/v/release/Caraveo/dimension?label=release)](https://github.com/Caraveo/dimension/releases/latest)
+[![Release downloads](https://img.shields.io/github/downloads/Caraveo/dimension/total?label=downloads)](https://github.com/Caraveo/dimension/releases)
+
+[Install](#install-on-ubuntu) · [Screenshots](#screenshots) · [Shortcuts](#using-dimension) · [Supported formats](#supported-formats) · [Report an issue](https://github.com/Caraveo/dimension/issues)
+
 Dimension is a standalone 3D model viewer for Ubuntu. Open USDZ, GLB, glTF, OBJ, FBX, STL, and other formats in a native GTK window. Rendering and model decoding run locally with no network access or external converter required.
 
 - **Studio preview** with lighting, shadows, bloom, and wireframe.
@@ -47,6 +52,13 @@ sudo apt remove dimension
 ![The exploded purple cube GLB open in Dimension](docs/images/dimension-logo-glb.png)
 
 Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the viewer.
+
+<details>
+<summary>See the same model in Clean View</summary>
+
+![The Dimension GLB in Clean View with the floor and interface hidden](docs/images/clean-view.png)
+
+</details>
 
 ## Using Dimension
 
