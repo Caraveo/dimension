@@ -10,6 +10,23 @@ import { loadModel, supportedFormats } from './formats.js';
 const ui = id => document.getElementById(id);
 const canvas = ui('canvas');
 const state = { wire: false, light: true, post: true, spin: false, clean: false };
+const preferences = window.dimensionPreferences || {};
+for (const key of Object.keys(state)) {
+  if (typeof preferences[key] === 'boolean') state[key] = preferences[key];
+}
+
+function savePreference(key, value) {
+  window.webkit?.messageHandlers.preferences.postMessage(JSON.stringify({ key, value }));
+}
+
+const intro = ui('intro');
+intro.addEventListener('close', () => {
+  if (!preferences.introSeen) {
+    preferences.introSeen = true;
+    savePreference('introSeen', true);
+  }
+});
+
 let active;
 let request = 0;
 
@@ -193,14 +210,31 @@ function main() {
     }
   };
 
+  function setOption(id, value) {
+    state[id] = value;
+    apply();
+    savePreference(id, value);
+  }
+
   for (const id of Object.keys(state)) {
-    ui(id).onclick = () => { state[id] = !state[id]; apply(); };
+    ui(id).onclick = () => setOption(id, id === 'clean' || !state[id]);
   }
   ui('frame').onclick = frame;
   window.addEventListener('keydown', event => {
-    if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
+    if (event.ctrlKey || event.altKey || event.metaKey || event.repeat || intro.open) return;
+    if (event.key === 'F1') {
+      event.preventDefault();
+      intro.showModal();
+      return;
+    }
+    if (event.key === 'Escape' && state.clean) {
+      event.preventDefault();
+      setOption('clean', false);
+      ui('clean').focus({ preventScroll: true });
+      return;
+    }
     const id = { w: 'wire', l: 'light', p: 'post', r: 'spin', f: 'frame', c: 'clean' }[event.key.toLowerCase()];
-    if (id) ui(id).click();
+    if (id && (id !== 'clean' || !state.clean)) ui(id).click();
   });
   new ResizeObserver(() => { resize(); }).observe(canvas);
   resize();
@@ -268,6 +302,7 @@ ui('open').onclick = () => window.webkit?.messageHandlers.dimension.postMessage(
 ui('open').title = `Supported formats: ${supportedFormats.join(', ')}`;
 try {
   main();
+  if (!preferences.introSeen) intro.showModal();
 } catch (error) {
   console.error(error);
   notice(`Could not start the 3D renderer. ${error.message}`);

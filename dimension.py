@@ -2,11 +2,14 @@
 """Launch Dimension's local renderer in a GTK window."""
 
 import argparse
+import fcntl
 import functools
 import json
 import mimetypes
 import secrets
 import shutil
+import sys
+import tempfile
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -21,7 +24,35 @@ from gi.repository import Gdk, Gio, GLib, Gtk, WebKit2
 
 APP_ID = "io.github.caraveo.Dimension"
 UI_ROOT = Path(__file__).resolve().parent / "ui"
+PREFERENCE_KEYS = {"wire", "light", "post", "spin", "clean", "introSeen"}
 FORMATS = "glb gltf 3ds 3mf amf dae fbx obj pcd ply stl usd usda usdc usdz vox vtk vtp".split()
+
+
+def read_preferences(path):
+    try:
+        stored = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(stored, dict):
+        return {}
+    return {key: value for key, value in stored.items() if key in PREFERENCE_KEYS and isinstance(value, bool)}
+
+
+def save_preference(path, key, value):
+    # Multiple model windows can update different preferences at the same time.
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.with_suffix(".lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        preferences = read_preferences(path)
+        preferences[key] = value
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as temporary:
+            draft = Path(temporary.name)
+            try:
+                json.dump(preferences, temporary)
+                temporary.flush()
+                draft.replace(path)
+            finally:
+                draft.unlink(missing_ok=True)
 
 
 class AssetServer(ThreadingHTTPServer):
@@ -90,6 +121,7 @@ class Dimension:
         self.server = server
         self.ready = False
         self.pending = initial_path
+        self.preferences = Path(GLib.get_user_config_dir()) / "dimension" / "preferences.json"
         self.window = Gtk.Window(title="Dimension")
         self.window.set_icon_from_file(str(UI_ROOT / "icons" / "dimension.png"))
         self.window.set_default_size(1120, 750)
@@ -98,6 +130,16 @@ class Dimension:
         self.window.connect("key-press-event", self.on_key)
 
         self.manager = WebKit2.UserContentManager()
+        settings = json.dumps(read_preferences(self.preferences))
+        self.manager.add_script(WebKit2.UserScript.new(
+            f"window.dimensionPreferences = {settings};",
+            WebKit2.UserContentInjectedFrames.TOP_FRAME,
+            WebKit2.UserScriptInjectionTime.START,
+            None,
+            None,
+        ))
+        self.manager.register_script_message_handler("preferences")
+        self.manager.connect("script-message-received::preferences", self.on_preference)
         self.manager.register_script_message_handler("dimension")
         self.manager.connect("script-message-received::dimension", self.on_message)
         self.web = WebKit2.WebView.new_with_user_content_manager(self.manager)
@@ -133,6 +175,17 @@ class Dimension:
             if self.pending is not None:
                 self.open_model(self.pending)
                 self.pending = None
+
+    def on_preference(self, _manager, message):
+        try:
+            payload = json.loads(message.get_js_value().to_string())
+            if not isinstance(payload, dict):
+                return
+            key, value = payload.get("key"), payload.get("value")
+            if isinstance(key, str) and key in PREFERENCE_KEYS and isinstance(value, bool):
+                save_preference(self.preferences, key, value)
+        except (ValueError, OSError) as error:
+            print(f"Dimension preferences: {error}", file=sys.stderr)
 
     def on_key(self, _window, event):
         if event.state & Gdk.ModifierType.CONTROL_MASK and event.keyval in (Gdk.KEY_o, Gdk.KEY_O):

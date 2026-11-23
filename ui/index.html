@@ -25,13 +25,26 @@
       <button id="wire" aria-pressed="false" title="Toggle wireframe (W)"><span aria-hidden="true">◇</span>Wireframe</button>
       <button id="light" aria-pressed="true" title="Toggle studio lighting (L)"><span aria-hidden="true">☼</span>Lighting</button>
       <button id="post" aria-pressed="true" title="Toggle post-processing (P)"><span aria-hidden="true">✧</span>Processing</button>
-      <button id="clean" aria-pressed="false" title="Toggle clean view (C)">Clean View</button>
+      <button id="clean" aria-pressed="false" title="Enter Clean View (C). Press Esc to return.">Clean View</button>
     </div>
   </main>
   <footer>
     <div class="model"><strong id="name">Aperture</strong><span id="format">DEMO</span><span id="count"></span></div>
     <div class="tips"><span>Drag to orbit</span><span>Scroll to zoom</span><span>Shift + drag to pan</span></div>
   </footer>
+  <dialog id="intro" aria-labelledby="intro-title">
+    <h1 id="intro-title">Welcome to Dimension</h1>
+    <p>Open or drop a model into the viewport. Drag to orbit, scroll to zoom, and Shift-drag to pan.</p>
+    <dl>
+      <dt>Open a model</dt><dd><kbd>Ctrl</kbd> <kbd>O</kbd></dd>
+      <dt>Frame the model</dt><dd><kbd>F</kbd></dd>
+      <dt>Wireframe, lighting, processing</dt><dd><kbd>W</kbd> <kbd>L</kbd> <kbd>P</kbd></dd>
+      <dt>Auto-rotate</dt><dd><kbd>R</kbd></dd>
+      <dt>Enter / leave Clean View</dt><dd><kbd>C</kbd> <kbd>Esc</kbd></dd>
+    </dl>
+    <p class="intro-help">Press <kbd>F1</kbd> to see these shortcuts again.</p>
+    <form method="dialog"><button class="open" autofocus>Got it</button></form>
+  </dialog>
   <script type="module" src="viewer.js"></script>
 </body>
 </html>
