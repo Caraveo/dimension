@@ -1,24 +1,12 @@
 # Dimension
 
-<img src="docs/images/dimension-logo.png" width="112" alt="Dimension logo, a purple triangulated wireframe cube">
+![Dimension — 3D model viewer for Ubuntu](docs/images/dimension-banner.png)
 
-Dimension is a standalone Ubuntu viewer for 3D models. It opens in a native GTK window and renders locally. The renderer and model decoders are bundled, so opening models requires no network access or external conversion software.
+Dimension is a standalone 3D model viewer for Ubuntu. Open USDZ, GLB, glTF, OBJ, FBX, STL, and other formats in a native GTK window. Rendering and model decoding run locally with no network access or external converter required.
 
-## Screenshots
-
-**Studio lighting and bloom**
-
-![Dimension showing the Aperture sculpture with studio lighting and bloom](docs/images/studio.png)
-
-**Wireframe mode**
-
-![Dimension showing the triangle mesh of the Aperture sculpture in wireframe mode](docs/images/wireframe.png)
-
-**3D logo model**
-
-![The exploded purple cube GLB open in Dimension](docs/images/dimension-logo-glb.png)
-
-Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the viewer.
+- **Studio preview** with lighting, shadows, bloom, and wireframe.
+- **Clean View** hides the floor and interface so you can orbit underneath the model.
+- **Desktop integration** lets you open supported files directly from Ubuntu Files.
 
 ## Install on Ubuntu
 
@@ -44,6 +32,24 @@ To uninstall:
 sudo apt remove dimension
 ```
 
+## Screenshots
+
+**Studio lighting and bloom**
+
+![Dimension showing the Aperture sculpture with studio lighting and bloom](docs/images/studio.png)
+
+**Wireframe mode**
+
+![Dimension showing the triangle mesh of the Aperture sculpture in wireframe mode](docs/images/wireframe.png)
+
+**3D logo model**
+
+![The exploded purple cube GLB open in Dimension](docs/images/dimension-logo-glb.png)
+
+Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the viewer.
+
+## Using Dimension
+
 Dimension starts with a studio-lit sculpture. Use **Open model**, press **Ctrl+O**, or drop a local file onto the viewport. Keep sidecar files such as OBJ materials, glTF buffers, and textures in their original locations relative to the selected model.
 
 | Action | Control |
@@ -62,10 +68,11 @@ Dimension starts with a studio-lit sculpture. Use **Open model**, press **Ctrl+O
 
 **Clean View** hides the viewport backdrop, floor grid, demo podium, and interface controls. Left-drag upward in Clean View to orbit underneath the model. Press **Esc** to restore the full viewport and return to the upper half of the orbit. Dimension remembers Clean View, wireframe, lighting, processing, and auto-rotate when you switch models or restart. The shortcut guide opens on first launch and is available anytime with **F1**.
 
+## Supported formats
+
 Dimension can open GLB, glTF, USDZ, USD, USDA, USDC, OBJ, FBX, STL, PLY, DAE, 3DS, 3MF, AMF, PCD, VOX, VTK, and VTP. It previews static geometry and supported materials. Fidelity varies with format, shader, and scene features. USD packages using advanced composition or materials can preview differently from their authoring tools, and external assets must be available locally.
 
 The bundled renderer is Three.js 0.187.0. Its MIT license is in `ui/vendor/LICENSE`.
-
 
 ## Run from source
 
