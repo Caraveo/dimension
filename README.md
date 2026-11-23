@@ -1,6 +1,6 @@
 # Dimension
 
-<img src="docs/images/dimension-logo-exploded.png" width="112" alt="Dimension logo, a purple wireframe cube made of separated facets">
+<img src="docs/images/dimension-logo.png" width="112" alt="Dimension logo, a purple triangulated wireframe cube">
 
 Dimension is a standalone Ubuntu viewer for 3D models. It opens in a native GTK window and renders locally. The renderer and model decoders are bundled, so opening models requires no network access or external conversion software.
 
@@ -19,13 +19,13 @@ Dimension is a standalone Ubuntu viewer for 3D models. It opens in a native GTK 
 Run this from your desktop user's terminal. The installer verifies the package checksum and uses `sudo` to install the package for all users.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.1/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.2/install.sh | sh
 ```
 
-You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.1) and install it with:
+You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.2) and install it with:
 
 ```sh
-sudo apt install ./dimension_0.0.1_all.deb
+sudo apt install ./dimension_0.0.2_all.deb
 ```
 
 Open **Dimension** from Applications, double-click a supported model in Files, or run `dimension /path/to/model.usdz`. The curl installer also sets Dimension as the default for the desktop user who runs it. On other accounts, an explicit per-user file association takes precedence over the system default.

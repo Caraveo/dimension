@@ -17,8 +17,9 @@ import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 gi.require_version("WebKit2", "4.1")
-from gi.repository import Gdk, Gio, Gtk, WebKit2
+from gi.repository import Gdk, Gio, GLib, Gtk, WebKit2
 
+APP_ID = "io.github.caraveo.Dimension"
 UI_ROOT = Path(__file__).resolve().parent / "ui"
 FORMATS = "glb gltf 3ds 3mf amf dae fbx obj pcd ply stl usd usda usdc usdz vox vtk vtp".split()
 
@@ -90,6 +91,7 @@ class Dimension:
         self.ready = False
         self.pending = initial_path
         self.window = Gtk.Window(title="Dimension")
+        self.window.set_icon_from_file(str(UI_ROOT / "icons" / "dimension.png"))
         self.window.set_default_size(1120, 750)
         self.window.set_size_request(390, 350)
         self.window.connect("destroy", lambda *_: Gtk.main_quit())
@@ -197,6 +199,8 @@ def main():
     parser = argparse.ArgumentParser(description="Dimension 3D model viewer")
     parser.add_argument("model", nargs="?", type=Path, help="model to open")
     args = parser.parse_args()
+    GLib.set_prgname(APP_ID)
+    Gdk.set_program_class(APP_ID)
     with AssetServer() as server:
         serve = functools.partial(server.serve_forever, poll_interval=0.1)
         threading.Thread(target=serve, daemon=True).start()
