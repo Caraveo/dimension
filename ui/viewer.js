@@ -9,7 +9,7 @@ import { loadModel, supportedFormats } from './formats.js';
 
 const ui = id => document.getElementById(id);
 const canvas = ui('canvas');
-const state = { wire: false, light: true, post: true, spin: false };
+const state = { wire: false, light: true, post: true, spin: false, clean: false };
 let active;
 let request = 0;
 
@@ -103,6 +103,10 @@ function main() {
   }
 
   function apply() {
+    document.body.classList.toggle('clean-view', state.clean);
+    grid.visible = !state.clean;
+    ground.visible = !state.clean;
+    if (active?.podium) active.podium.visible = !state.clean;
     studio.visible = state.light;
     scene.environment = state.light ? environment.texture : null;
     controls.autoRotate = state.spin;
@@ -116,7 +120,7 @@ function main() {
     for (const [id, value] of Object.entries(state)) ui(id).setAttribute('aria-pressed', String(value));
   }
 
-  function replace(model, name, format) {
+  function replace(model, name, format, podium = null) {
     const bounds = new THREE.Box3().setFromObject(model);
     const size = bounds.getSize(new THREE.Vector3());
     const extent = Math.max(size.x, size.y, size.z);
@@ -163,7 +167,7 @@ function main() {
       dispose(active.wrapper, materials);
     }
     scene.add(wrapper);
-    active = { wrapper, entries, bounds: new THREE.Box3().setFromObject(wrapper) };
+    active = { wrapper, entries, podium, bounds: new THREE.Box3().setFromObject(wrapper) };
     ui('name').textContent = name;
     ui('name').title = name;
     ui('format').textContent = format;
@@ -195,12 +199,13 @@ function main() {
   ui('frame').onclick = frame;
   window.addEventListener('keydown', event => {
     if (event.ctrlKey || event.altKey || event.metaKey || event.repeat) return;
-    const id = { w: 'wire', l: 'light', p: 'post', r: 'spin', f: 'frame' }[event.key.toLowerCase()];
+    const id = { w: 'wire', l: 'light', p: 'post', r: 'spin', f: 'frame', c: 'clean' }[event.key.toLowerCase()];
     if (id) ui(id).click();
   });
   new ResizeObserver(() => { resize(); }).observe(canvas);
   resize();
-  replace(demo(), 'Aperture', 'DEMO');
+  const { model, podium } = demo();
+  replace(model, 'Aperture', 'DEMO', podium);
 
   renderer.setAnimationLoop(() => {
     controls.update();
@@ -226,7 +231,8 @@ function dispose(object, extraMaterials = []) {
 }
 
 function demo() {
-  const group = new THREE.Group();
+  const model = new THREE.Group();
+  const podium = new THREE.Group();
   const knot = new THREE.Mesh(
     new THREE.TorusKnotGeometry(0.97, 0.245, 384, 36, 2, 3),
     new THREE.MeshPhysicalMaterial({ color: 0xb5a0ff, metalness: 0.65, roughness: 0.25, clearcoat: 0.65, clearcoatRoughness: 0.21 })
@@ -234,28 +240,28 @@ function demo() {
   knot.rotation.set(0.17, -0.38, 0.34);
   knot.updateMatrixWorld();
   knot.position.y = 0.30 - new THREE.Box3().setFromObject(knot, true).min.y;
-  group.add(knot);
+  model.add(knot, podium);
 
   const base = new THREE.Mesh(
     new THREE.CylinderGeometry(1.55, 1.63, 0.21, 128),
     new THREE.MeshStandardMaterial({ color: 0x262038, metalness: 0.32, roughness: 0.38 })
   );
   base.position.y = 0.105;
-  group.add(base);
+  podium.add(base);
   const top = new THREE.Mesh(
     new THREE.CylinderGeometry(1.49, 1.55, 0.1, 128),
     new THREE.MeshStandardMaterial({ color: 0x423951, metalness: 0.43, roughness: 0.33 })
   );
   top.position.y = 0.24;
-  group.add(top);
+  podium.add(top);
   const accent = new THREE.Mesh(
     new THREE.TorusGeometry(1.54, 0.012, 8, 128),
     new THREE.MeshStandardMaterial({ color: 0xbaa3ff, emissive: 0x9a6dff, emissiveIntensity: 1.5 })
   );
   accent.rotation.x = -Math.PI / 2;
   accent.position.y = 0.207;
-  group.add(accent);
-  return group;
+  podium.add(accent);
+  return { model, podium };
 }
 
 ui('open').onclick = () => window.webkit?.messageHandlers.dimension.postMessage('open');

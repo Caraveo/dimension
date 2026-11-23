@@ -25,13 +25,13 @@ Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the vie
 Run this from your desktop user's terminal. The installer verifies the package checksum and uses `sudo` to install the package for all users.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.2/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/caraveo/dimension/v0.0.3/install.sh | sh
 ```
 
-You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.2) and install it with:
+You can also [download the .deb from GitHub Releases](https://github.com/caraveo/dimension/releases/tag/v0.0.3) and install it with:
 
 ```sh
-sudo apt install ./dimension_0.0.2_all.deb
+sudo apt install ./dimension_0.0.3_all.deb
 ```
 
 Open **Dimension** from Applications, double-click a supported model in Files, or run `dimension /path/to/model.usdz`. The curl installer also sets Dimension as the default for the desktop user who runs it. On other accounts, an explicit per-user file association takes precedence over the system default.
@@ -56,6 +56,9 @@ Dimension starts with a studio-lit sculpture. Use **Open model**, press **Ctrl+O
 | Toggle wireframe | W |
 | Toggle studio lighting | L |
 | Toggle bloom | P |
+| Toggle Clean View | C |
+
+**Clean View** hides the viewport backdrop, floor grid, demo podium, and interface controls. Press **C** or select **Clean View** again to restore the full viewport.
 
 Dimension can open GLB, glTF, USDZ, USD, USDA, USDC, OBJ, FBX, STL, PLY, DAE, 3DS, 3MF, AMF, PCD, VOX, VTK, and VTP. It previews static geometry and supported materials. Fidelity varies with format, shader, and scene features. USD packages using advanced composition or materials can preview differently from their authoring tools, and external assets must be available locally.
 

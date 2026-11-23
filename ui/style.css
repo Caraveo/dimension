@@ -32,3 +32,10 @@ footer { color: #a19ab2; font-size: 11px; }
 #count, .tips { white-space: nowrap; }
 @media (max-width: 710px) { .tips { display: none; } }
 @media (max-width: 440px) { body { padding: 0 8px; } kbd { display: none; } .dock button { padding: 6px; font-size: 11px; } }
+
+body.clean-view { grid-template-rows: minmax(0, 1fr); padding: 0; }
+.clean-view :is(.header, footer, .viewport-label, .view-actions, .dock button:not(#clean)) { display: none; }
+.clean-view #stage { background: none; border: 0; border-radius: 0; }
+.clean-view .dock { background: none; border: 0; box-shadow: none; }
+.clean-view #clean { background: #171422ed; }
+.clean-view #clean:hover { background: #322743; }
