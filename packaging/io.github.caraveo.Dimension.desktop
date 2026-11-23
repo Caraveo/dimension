@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Dimension
+GenericName=3D Model Viewer
+Comment=Preview 3D models with studio lighting
+Exec=/usr/bin/dimension %f
+Icon=applications-graphics
+Terminal=false
+Categories=Graphics;3DGraphics;Viewer;
+MimeType=model/gltf-binary;model/gltf+json;model/obj;model/stl;model/3mf;model/vnd.usdz+zip;model/vnd.usd;model/x-autodesk-fbx;model/x-ply;model/vnd.collada+xml;image/x-3ds;model/x-amf;model/x-pcd;model/x-vox;model/x-vtk;
+StartupNotify=true

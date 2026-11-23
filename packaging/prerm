@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+if [ "$1" = remove ] || [ "$1" = deconfigure ]; then
+    /usr/lib/dimension/mime-defaults.py remove /etc/xdg/mimeapps.list \
+        /usr/share/applications/io.github.caraveo.Dimension.desktop
+fi

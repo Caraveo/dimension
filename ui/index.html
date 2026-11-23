@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; img-src 'self' blob: data:; connect-src 'self' blob: data:; worker-src 'self' blob:; style-src 'self'">
+  <title>Dimension</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/build/three.module.js","three/addons/":"./vendor/examples/jsm/"}}</script>
+</head>
+<body>
+  <header class="header">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">◇</span>Dimension</div>
+    <button id="open" class="open"><span aria-hidden="true">＋</span> Open model <kbd>Ctrl O</kbd></button>
+  </header>
+  <main id="stage" aria-label="Interactive 3D viewport">
+    <div id="canvas"></div>
+    <div class="viewport-label"><i></i> VIEWPORT</div>
+    <div class="view-actions">
+      <button id="frame" title="Frame model (F)" aria-label="Frame model">⛶</button>
+      <button id="spin" title="Auto-rotate (R)" aria-label="Auto-rotate" aria-pressed="false">⟳</button>
+    </div>
+    <div id="notice" role="status" hidden></div>
+    <div class="dock" role="group" aria-label="Rendering controls">
+      <button id="wire" aria-pressed="false" title="Toggle wireframe (W)"><span aria-hidden="true">◇</span>Wireframe</button>
+      <button id="light" aria-pressed="true" title="Toggle studio lighting (L)"><span aria-hidden="true">☼</span>Lighting</button>
+      <button id="post" aria-pressed="true" title="Toggle post-processing (P)"><span aria-hidden="true">✧</span>Processing</button>
+    </div>
+  </main>
+  <footer>
+    <div class="model"><strong id="name">Aperture</strong><span id="format">DEMO</span><span id="count"></span></div>
+    <div class="tips"><span>Drag to orbit</span><span>Scroll to zoom</span><span>Shift + drag to pan</span></div>
+  </footer>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

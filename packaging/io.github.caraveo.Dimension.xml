@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="model/gltf-binary">
+    <comment>Binary glTF model</comment>
+    <glob pattern="*.glb"/>
+  </mime-type>
+  <mime-type type="model/gltf+json">
+    <comment>glTF model</comment>
+    <glob pattern="*.gltf"/>
+  </mime-type>
+  <mime-type type="model/stl">
+    <comment>STL 3D model</comment>
+    <glob pattern="*.stl"/>
+  </mime-type>
+  <mime-type type="model/3mf">
+    <comment>3MF 3D model</comment>
+    <glob pattern="*.3mf"/>
+  </mime-type>
+  <mime-type type="image/x-3ds">
+    <comment>3D Studio model</comment>
+    <glob pattern="*.3ds"/>
+  </mime-type>
+  <mime-type type="model/vnd.usdz+zip">
+    <comment>USDZ 3D model package</comment>
+    <glob pattern="*.usdz"/>
+  </mime-type>
+  <mime-type type="model/vnd.usd">
+    <comment>Universal Scene Description model</comment>
+    <glob pattern="*.usd"/>
+    <glob pattern="*.usda"/>
+    <glob pattern="*.usdc"/>
+  </mime-type>
+  <mime-type type="model/x-autodesk-fbx">
+    <comment>FBX 3D model</comment>
+    <glob pattern="*.fbx"/>
+  </mime-type>
+  <mime-type type="model/x-ply">
+    <comment>PLY 3D model or point cloud</comment>
+    <glob pattern="*.ply"/>
+  </mime-type>
+  <mime-type type="model/vnd.collada+xml">
+    <comment>COLLADA 3D model</comment>
+    <glob pattern="*.dae"/>
+  </mime-type>
+  <mime-type type="model/x-amf">
+    <comment>Additive Manufacturing 3D model</comment>
+    <glob pattern="*.amf"/>
+  </mime-type>
+  <mime-type type="model/x-pcd">
+    <comment>Point Cloud Data</comment>
+    <glob pattern="*.pcd"/>
+    <magic priority="75">
+      <match type="string" value="# .PCD" offset="0"/>
+      <match type="string" value="VERSION " offset="0"/>
+    </magic>
+  </mime-type>
+  <mime-type type="model/x-vox">
+    <comment>MagicaVoxel 3D model</comment>
+    <glob pattern="*.vox"/>
+  </mime-type>
+  <mime-type type="model/x-vtk">
+    <comment>VTK 3D model</comment>
+    <glob pattern="*.vtk"/>
+    <glob pattern="*.vtp"/>
+  </mime-type>
+  <mime-type type="model/obj">
+    <comment>Wavefront OBJ 3D model</comment>
+    <glob pattern="*.obj" weight="60"/>
+    <magic priority="75">
+      <match type="string" value="v " offset="0"/>
+      <match type="string" value="mtllib " offset="0"/>
+    </magic>
+  </mime-type>
+</mime-info>
