@@ -14,6 +14,8 @@ Dimension is a standalone Ubuntu viewer for 3D models. It opens in a native GTK 
 
 ![Dimension showing the triangle mesh of the Aperture sculpture in wireframe mode](docs/images/wireframe.png)
 
+Try the [3D Dimension logo (.glb)](docs/models/dimension-logo-3d.glb) in the viewer.
+
 ## Install on Ubuntu
 
 Run this from your desktop user's terminal. The installer verifies the package checksum and uses `sudo` to install the package for all users.
