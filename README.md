@@ -1,6 +1,6 @@
 # Dimension
 
-![Dimension — 3D model viewer for Ubuntu](docs/images/dimension-banner.png)
+![Dimension — 3D model viewer for Ubuntu](docs/images/dimension-readme-banner.png)
 
 [![Latest release](https://img.shields.io/github/v/release/Caraveo/dimension?label=release)](https://github.com/Caraveo/dimension/releases/latest)
 [![Release downloads](https://img.shields.io/github/downloads/Caraveo/dimension/total?label=downloads)](https://github.com/Caraveo/dimension/releases)
